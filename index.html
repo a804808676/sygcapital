@@ -233,6 +233,149 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://a804808676.github.io/sygcapital/2018/07/18/go-0718-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="沈耀国">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/sygcapital/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沈耀国技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/sygcapital/2018/07/18/go-0718-01/" itemprop="url">Golang gorm (sql orm框架)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-18T16:13:38+08:00">
+                2018-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/sygcapital/categories/GO/" itemprop="url" rel="index">
+                    <span itemprop="name">GO</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import &quot;github.com/jinzhu/gorm&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//定义表结构体</span><br><span class="line">type Product struct &#123;</span><br><span class="line">	ID uint `gorm:&quot;primary_key&quot;`</span><br><span class="line">	Code string</span><br><span class="line">	Price uint</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*products 模型*/</span><br><span class="line">type Product struct &#123;</span><br><span class="line">	ID    uint</span><br><span class="line">	Code  string</span><br><span class="line">	Price uint</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//修改默认表名</span><br><span class="line">func (Product) TableName() string &#123;</span><br><span class="line">	return &quot;product2&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//设置字段</span><br><span class="line">type Email struct &#123;</span><br><span class="line">	ID         int</span><br><span class="line">	Email      string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type prefix_emails struct &#123;</span><br><span class="line">	ID         int</span><br><span class="line">	Email      string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//数据库连接</span><br><span class="line"> db,err := gorm.Open(&quot;mysql&quot;,&quot;root:root@/test?charset=utf8&amp;parseTime=True&amp;loc=Local&quot;)</span><br><span class="line"> if err != nil &#123;</span><br><span class="line">	panic(&quot;failed to connect database&quot;)</span><br><span class="line">	 &#125;</span><br><span class="line"> defer db.Close()</span><br><span class="line"> </span><br><span class="line">//设置默认表名前缀</span><br><span class="line">	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string &#123;</span><br><span class="line">	 	return &quot;prefix_&quot; + defaultTableName</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">	//自动迁移仅仅会生成表,不改变表</span><br><span class="line">    db.AutoMigrate(&amp;Product&#123;&#125;, &amp;Email&#123;&#125;)</span><br><span class="line">	dbname := &quot;test&quot;</span><br><span class="line">	db := dbclientGet(dbname)</span><br><span class="line">    db.DB().Query(&quot;&quot;)</span><br><span class="line"></span><br><span class="line">	//添加数据</span><br><span class="line">	var email = prefix_emails&#123;Email:&quot;233&quot;&#125;</span><br><span class="line">	db.Create(&amp;email)</span><br><span class="line"></span><br><span class="line">	//查询数据</span><br><span class="line">	var prefix_email []prefix_emails</span><br><span class="line"></span><br><span class="line">	//查询结果使用Scan赋值结构体</span><br><span class="line">	/*获取第一条记录*/	</span><br><span class="line">	db.First(&amp;prefix_email).Scan(&amp;prefix_email)</span><br><span class="line">	fmt.Println(prefix_email)</span><br><span class="line"></span><br><span class="line">	/*获取最后一条记录*/</span><br><span class="line">	db.Last(&amp;prefix_email).Scan(&amp;prefix_email)</span><br><span class="line">	fmt.Println(prefix_email) </span><br><span class="line"></span><br><span class="line">	//获取所有记录</span><br><span class="line">    db.Find(&amp;prefix_email)</span><br><span class="line"></span><br><span class="line">	//条件查询</span><br><span class="line">	db.Where(&quot;email=?&quot;, &quot;234&quot;).Find(&amp;prefix_email)</span><br><span class="line"></span><br><span class="line">	//结构体(struct)  </span><br><span class="line">	db.Where(&amp;prefix_emails&#123;Email:&quot;234&quot;&#125;).First(&amp;prefix_email)</span><br><span class="line"></span><br><span class="line">	//集合(map)</span><br><span class="line">	db.Where(map[string]interface&#123;&#125;&#123;&quot;Email&quot;:&quot;233&quot;&#125;).First(&amp;prefix_email)</span><br><span class="line">	</span><br><span class="line">	//主键查询(切片)</span><br><span class="line">	db.Where([]int64&#123;1,2&#125;).Find(&amp;prefix_email)</span><br><span class="line">	 </span><br><span class="line">	//Not 查询</span><br><span class="line">	//Not IN(数组) Email Not IN()</span><br><span class="line">	db.Not(&quot;Email&quot;,[]string&#123;&quot;233&quot;&#125;).Find(&amp;prefix_email)</span><br><span class="line">   </span><br><span class="line">	//切片 id Not IN()</span><br><span class="line">	db.Not([]int64&#123;2&#125;).Find(&amp;prefix_email)</span><br><span class="line"></span><br><span class="line">	//where NOT(email = &quot;2333&quot;)</span><br><span class="line">	db.Not(&quot;email = ?&quot;, &quot;233&quot;).Find(&amp;prefix_email)</span><br><span class="line">	</span><br><span class="line">	//WHERE Email &lt;&gt;(不等于)  &quot;234&quot;</span><br><span class="line">	db.Not(Email&#123;Email: &quot;234&quot;&#125;).Find(&amp;prefix_email)</span><br><span class="line"></span><br><span class="line">	//OR条件查询</span><br><span class="line">	db.Where(&quot;email = ?&quot;, &quot;233&quot;).Or(&quot;email = ?&quot;, &quot;666&quot;).Find(&amp;prefix_email)</span><br><span class="line">	</span><br><span class="line">	//Or 结构体</span><br><span class="line">    db.Where(&quot;email = ?&quot;, &quot;233&quot;).Or(Email&#123;Email: &quot;666&quot;&#125;).Find(&amp;prefix_email)</span><br><span class="line"></span><br><span class="line">	//Or map</span><br><span class="line">    db.Where(&quot;email = ?&quot;, &quot;233&quot;).Or(map[string]interface&#123;&#125;&#123;&quot;email&quot;: &quot;234&quot;&#125;).Find(&amp;prefix_email) </span><br><span class="line">  </span><br><span class="line">	//查询链,使用.号连接多个函数</span><br><span class="line">	db.Where(&quot;role = ?&quot;, &quot;admin&quot;).Or(&quot;role = ?&quot;, &quot;super_admin&quot;).Not(&quot;name = ?&quot;, &quot;jinzhu&quot;).Find(&amp;users)</span><br><span class="line"></span><br><span class="line">	//扩展查询选项</span><br><span class="line">	where id = 2 FOR UPDATE(加锁)</span><br><span class="line">	db.Set(&quot;gorm:query_option&quot;, &quot;FOR UPDATE&quot;).First(&amp;prefix_email, 2)</span><br><span class="line"></span><br><span class="line">	//参数初始化结构</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	//查询检索字段(select)</span><br><span class="line">    db.Select(&quot;email&quot;).Find(&amp;prefix_email)</span><br><span class="line"></span><br><span class="line">	//order</span><br><span class="line">	db.Order(&quot;id desc&quot;).Find(&amp;prefix_email)</span><br><span class="line"></span><br><span class="line">	//Limit</span><br><span class="line">	db.Limit(2).Find(&amp;prefix_email)</span><br><span class="line"></span><br><span class="line">	//开始返回记录之前 跳过记录数</span><br><span class="line">	 db.Offset(2).Find(&amp;prefix_email)</span><br><span class="line"></span><br><span class="line">	db.Offset(2).Find(&amp;prefix_email).Offset(-2).Find(&amp;prefix_email)</span><br><span class="line"></span><br><span class="line">	//count 获取模型记录数</span><br><span class="line">	var count int</span><br><span class="line"></span><br><span class="line">	db.Find(&amp;prefix_email).Count(&amp;count)</span><br><span class="line"></span><br><span class="line">	fmt.Println(count)</span><br><span class="line">     </span><br><span class="line">	//遍历结构体 获取查询结果 </span><br><span class="line">	 for _, auth := range prefix_email &#123;</span><br><span class="line">	 	fmt.Println(auth.ID)</span><br><span class="line">	 	fmt.Println(auth.Email)</span><br><span class="line">	 &#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	//GROUP Havin</span><br><span class="line">	var (</span><br><span class="line">		id int</span><br><span class="line">		email string</span><br><span class="line">	)</span><br><span class="line">	// rows,err := db.Table(&quot;prefix_emails&quot;).Group(&quot;id&quot;).Having(&quot;id &gt; ?&quot;, 1).Rows()</span><br><span class="line">	rowsNew, err := db.Joins(&quot;prefix_emails ON product2.code = prefix_emails.id&quot;).Rows()</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		fmt.Println(&quot;233&quot;) </span><br><span class="line">	&#125;</span><br><span class="line">	for rowsNew.Next()&#123;</span><br><span class="line">		err := rowsNew.Scan(&amp;id,&amp;email)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Println(&quot;2333&quot;)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(id)</span><br><span class="line">		fmt.Println(email)</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">连接数据库方法</span><br><span class="line">func dbclientGet(dbname string) *gorm.DB&#123;</span><br><span class="line">	db,err := gorm.Open(&quot;mysql&quot;,&quot;root:root@/&quot;+dbname+&quot;?charset=utf8&amp;parseTime=True&amp;loc=Local&quot;)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		panic(&quot;failed to connect database&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">	return db</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-GO" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://a804808676.github.io/sygcapital/2018/07/16/go-0716-01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1028,7 +1171,7 @@
               
                 <a href="/sygcapital/archives">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
