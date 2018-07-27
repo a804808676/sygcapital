@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/sygcapital/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/sygcapital/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/sygcapital/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/sygcapital/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/sygcapital/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/sygcapital/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/sygcapital/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="PHP," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1234567需要浏览器处理网页，但并不需要浏览，比如生成网页的截图、抓取网页数据等操作。PhantomJS的功能，就是提供一个浏览器环境的命令行接口，你可以把它看作一个“虚拟浏览器”，除了不能浏览，其他与正常浏览器一样。它的内核是WebKit引擎，不提供图形界面，只能在命令行下使用，我们可以用它完成一些特殊的用途。此处使用php PhantomJS 安装123456789101112131415">
+<meta name="keywords" content="PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="无头浏览器应用(模拟请求网页)">
+<meta property="og:url" content="https://a804808676.github.io/2018/07/27/php-0727-01/index.html">
+<meta property="og:site_name" content="沈耀国技术博客">
+<meta property="og:description" content="1234567需要浏览器处理网页，但并不需要浏览，比如生成网页的截图、抓取网页数据等操作。PhantomJS的功能，就是提供一个浏览器环境的命令行接口，你可以把它看作一个“虚拟浏览器”，除了不能浏览，其他与正常浏览器一样。它的内核是WebKit引擎，不提供图形界面，只能在命令行下使用，我们可以用它完成一些特殊的用途。此处使用php PhantomJS 安装123456789101112131415">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-27T08:53:28.025Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="无头浏览器应用(模拟请求网页)">
+<meta name="twitter:description" content="1234567需要浏览器处理网页，但并不需要浏览，比如生成网页的截图、抓取网页数据等操作。PhantomJS的功能，就是提供一个浏览器环境的命令行接口，你可以把它看作一个“虚拟浏览器”，除了不能浏览，其他与正常浏览器一样。它的内核是WebKit引擎，不提供图形界面，只能在命令行下使用，我们可以用它完成一些特殊的用途。此处使用php PhantomJS 安装123456789101112131415">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/sygcapital/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://a804808676.github.io/2018/07/27/php-0727-01/"/>
+
+
+
+
+
+  <title>无头浏览器应用(模拟请求网页) | 沈耀国技术博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/sygcapital/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">沈耀国技术博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/sygcapital/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/sygcapital/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/sygcapital/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-PHP" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://a804808676.github.io/sygcapital/2018/07/27/php-0727-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="沈耀国">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/sygcapital/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沈耀国技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">无头浏览器应用(模拟请求网页)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-27T16:51:14+08:00">
+                2018-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/sygcapital/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">需要浏览器处理网页，但并不需要浏览，比如生成网页的截图、</span><br><span class="line">抓取网页数据等操作。PhantomJS的功能，就是提供一个浏览器环境的命令行接口，你</span><br><span class="line">可以把它看作一个“虚拟浏览器”，除了不能浏览，其他与正常浏览器一样。</span><br><span class="line">它的内核是WebKit引擎，不提供图形界面，只能在命令行下使用，</span><br><span class="line">我们可以用它完成一些特殊的用途。</span><br><span class="line"></span><br><span class="line">此处使用php PhantomJS</span><br></pre></td></tr></table></figure>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">安装使用composer 安装,需要项目目录下创建composer.json</span><br><span class="line"></span><br><span class="line">#composer.json</span><br><span class="line">&#123;</span><br><span class="line"> &quot;scripts&quot;: &#123;</span><br><span class="line">        &quot;post-install-cmd&quot;: [</span><br><span class="line">            &quot;PhantomInstaller\\Installer::installPhantomJS&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;post-update-cmd&quot;: [</span><br><span class="line">            &quot;PhantomInstaller\\Installer::installPhantomJS&quot;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">	 &quot;config&quot;: &#123;</span><br><span class="line">        &quot;bin-dir&quot;: &quot;bin&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">	&quot;require&quot;: &#123;</span><br><span class="line">	 &quot;jonnyw/php-phantomjs&quot;: &quot;4.*&quot;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">composer updata</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">require_once &quot;vendor/autoload.php&quot;;</span><br><span class="line">use JonnyW\PhantomJs\Client;</span><br><span class="line">use JonnyW\PhantomJs\DependencyInjection\ServiceContainer;</span><br><span class="line">$client = Client::getInstance();</span><br><span class="line"></span><br><span class="line">    $width  = 800;</span><br><span class="line">    $height = 600;</span><br><span class="line">    $top    = 0;</span><br><span class="line">    $left   = 0;</span><br><span class="line">//指定调用程序    </span><br><span class="line">$client-&gt;getEngine()-&gt;setPath(&apos;D:\phpStudy\PHPTutorial\WWW\testace\bin/phantomjs.exe&apos;);</span><br><span class="line"></span><br><span class="line">//添加</span><br><span class="line">$client-&gt;getEngine()-&gt;addOption(&quot;--proxy=119.4.136.56:4262&quot;);</span><br><span class="line">$request = $client-&gt;getMessageFactory()-&gt;createRequest(&apos;http://www.kxb.cn&apos;, &apos;GET&apos;);</span><br><span class="line"></span><br><span class="line">    $request = $client-&gt;getMessageFactory()-&gt;createCaptureRequest(&apos;https://www.baidu.com&apos;, &apos;GET&apos;);</span><br><span class="line">    $request-&gt;setOutputFile(&apos;./file.jpg&apos;);</span><br><span class="line">    $request-&gt;setViewportSize($width, $height);</span><br><span class="line">    $request-&gt;setCaptureDimensions($width, $height, $top, $left);</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * @see JonnyW\PhantomJs\Http\Response</span><br><span class="line">     **/</span><br><span class="line">    $response = $client-&gt;getMessageFactory()-&gt;createResponse();</span><br><span class="line"></span><br><span class="line">    // Send the request</span><br><span class="line">    $client-&gt;send($request, $response);</span><br><span class="line">    exit();</span><br><span class="line">/*自定义模块*/</span><br><span class="line"></span><br><span class="line">$location = &apos;/path/to/your/script/directory&apos;;//自定义模块所在文件夹</span><br><span class="line">$serviceContainer = ServiceContainer::getInstance();</span><br><span class="line">$procedureLoader = $serviceContainer-&gt;get(&apos;procedure_loader_factory&apos;)-&gt;createProcedureLoader($location);//详细参见本文页尾</span><br><span class="line"></span><br><span class="line">/*正常实例*/</span><br><span class="line">$client = Client::getInstance();//实例</span><br><span class="line"></span><br><span class="line">/*自定义模块*/</span><br><span class="line">$client-&gt;setProcedure(&apos;my_procedure&apos;);//加载一个名为my_procedure.proc的自定义js模块,详见本文页尾</span><br><span class="line">$client-&gt;getProcedureLoader()-&gt;addLoader($procedureLoader);//自动加载模块</span><br><span class="line"></span><br><span class="line">/*自设phantomjs参数 参数文档参考 http://phantomjs.org/api/command-line.html*/</span><br><span class="line">$client-&gt;getEngine()-&gt;addOption(&apos;--load-images=true&apos;);//phantomjs参数,参数地址:http://phantomjs.org/api/command-line.html</span><br><span class="line">$client-&gt;getEngine()-&gt;addOption(&apos;--config=/path/to/config.json&apos;);//除了单独配置命令,还可配置命令集配置的json文件::本文页尾列举了常用的配置</span><br><span class="line"></span><br><span class="line">/*调试与缓存*/</span><br><span class="line">$client-&gt;getEngine()-&gt;debug(true);//允许或禁止调试</span><br><span class="line">$client-&gt;getLog(); //开启调试则输出结果</span><br><span class="line">$client-&gt;getProcedureCompiler()-&gt;clearCache();//清除缓存.建议允许前进行清除</span><br><span class="line">$client-&gt;getProcedureCompiler()-&gt;enableCache();//允许缓存,建议开启</span><br><span class="line">$client-&gt;getProcedureCompiler()-&gt;disableCache();//禁止读取缓存</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/*渲染与请求方式*/</span><br><span class="line">$link=&apos;http://jonnnnyw.github.io/php-phantomjs/4.0/3-usage/#on-load-finished&apos;;//请求的url</span><br><span class="line">$client-&gt;isLazy(); // 是否让客户端等待所有资源加载完毕,开启此项务必开始setTimeout,避免轮询页面不断等待.</span><br><span class="line">$request = $client-&gt;getMessageFactory()-&gt;createRequest();</span><br><span class="line">$response = $client-&gt;getMessageFactory()-&gt;createResponse();</span><br><span class="line">$request-&gt;setUrl($link);</span><br><span class="line">$request-&gt;setMethod(&apos;GET&apos;);//可GET|POST|OPTIONS|HEAD|DELETE|PATCH|PUT</span><br><span class="line">$request-&gt;setTimeout(5000);//超过指定时间则中断渲染</span><br><span class="line">$request-&gt;setDelay(5);//设置延迟5秒</span><br><span class="line">$request-&gt;setRequestData(array(&apos;param1&apos; =&gt; &apos;Param 1&apos;,&apos;param2&apos; =&gt; &apos;Param 2&apos;));//POST时发送的数据</span><br><span class="line">$request-&gt;addHeader(&apos;custom_header_key&apos;, &apos;custom_header_value&apos;);//自定义头信息</span><br><span class="line">$client-&gt;send($request, $response);//发送请求</span><br><span class="line"></span><br><span class="line">/*截图(图或PDF文件)*/</span><br><span class="line">$request-&gt;setRepeatingHeader(&apos;&lt;h1&gt;Header &lt;span style=&quot;float:right&quot;&gt;%pageNum% / %pageTotal%&lt;/span&gt;&lt;/h1&gt;&apos;,100);//自定义PDF类的头尾及其高度</span><br><span class="line">$request-&gt;setRepeatingFooter(&apos;&lt;footer&gt;Footer &lt;span style=&quot;float:right&quot;&gt;%pageNum% / %pageTotal%&lt;/span&gt;&lt;/footer&gt;&apos;,100);//自定义PDF类的头尾</span><br><span class="line">$request-&gt;setViewportSize(200, 100);//设置可视宽高</span><br><span class="line">$request-&gt;setBodyStyles(array(&apos;backgroundColor&apos; =&gt; &apos;#ff0000&apos;));//设置纸张背景色</span><br><span class="line">$request-&gt;setFormat(&apos;A4&apos;);//设置尺寸格式,如A4</span><br><span class="line">$request-&gt;setOrientation(&apos;landscape&apos;);//设置纸张方向如纵向</span><br><span class="line">$request-&gt;setPaperSize(&apos;10cm&apos;, &apos;20cm&apos;);//PDF纸张大小</span><br><span class="line">$request-&gt;setMargin(&apos;1cm&apos;);//PDF纸张边距</span><br><span class="line">$request-&gt;setOutputFile(&apos;E:\php\file.jpg|file.pdf&apos;);//截图或PDF存储路径</span><br><span class="line">$request-&gt;setCaptureDimensions(240, 320, 10, 20);//设置截图宽高与边距$width, $height, $top, $left</span><br><span class="line"></span><br><span class="line">/*响应结果*/</span><br><span class="line">$response-&gt;getHeaders();//返回头组成的数组</span><br><span class="line">$response-&gt;getHeader();//返回头</span><br><span class="line">$response-&gt;getStatus();//返回状态码:200则正确,其余错误.</span><br><span class="line">$response-&gt;getContent();//返回正文</span><br><span class="line">$response-&gt;getContentType();//返回正文类型</span><br><span class="line">$response-&gt;getUrl();//返回请求地址</span><br><span class="line">$response-&gt;getRedirectUrl();//返回重定向后的地址</span><br><span class="line">$response-&gt;isRedirect();//返回是否重定向</span><br><span class="line">$response-&gt;getConsole();//返回JS控制台内容</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/sygcapital/tags/PHP/" rel="tag"># PHP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/sygcapital/2018/07/18/go-0718-01/" rel="next" title="Golang gorm (sql orm框架)">
+                <i class="fa fa-chevron-left"></i> Golang gorm (sql orm框架)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">沈耀国</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/sygcapital/archives">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/sygcapital/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/sygcapital/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">沈耀国</span>
+
+  
+</div>
+
+
+  <div class="powered-by"> 个人专属</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">博客 &mdash; </div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/sygcapital/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/sygcapital/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/sygcapital/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/sygcapital/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/sygcapital/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/sygcapital/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/sygcapital/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/sygcapital/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/sygcapital/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/sygcapital/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/sygcapital/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/sygcapital/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/sygcapital/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
